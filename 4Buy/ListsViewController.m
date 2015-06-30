@@ -82,11 +82,16 @@
     }
     
     List *list = self.lists[indexPath.row];
-    
+    cell.textLabel.alpha = 0.9;
     cell.textLabel.text = list.name;
     [cell.textLabel setTextColor:list.color];
     
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self performSegueWithIdentifier:@"viewList" sender:nil];
 }
 
 #pragma mark- Helper methods
