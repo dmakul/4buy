@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <Parse/Parse.h>
 
 @interface AppDelegate ()
 
@@ -16,6 +17,12 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    [Parse setApplicationId:@"YRmvLZf2ahyIZCAx7Q3JS4AID0MbpmeT0xac92Xv"
+                  clientKey:@"4OH73vqvzSm3q9oZpDZkCkMrxf7wwmLDc4POGqoO"];
+    
+    UIImage *myImage = [UIImage imageNamed:@"1.jpg"];
+    [[UINavigationBar appearance] setBackgroundImage:myImage forBarMetrics:UIBarMetricsDefault];
     // Override point for customization after application launch.
     return YES;
 }
