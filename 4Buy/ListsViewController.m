@@ -10,6 +10,7 @@
 #import "AddListViewController.h"
 #import <Parse/Parse.h>
 #import "List.h"
+#import "TableViewCell.h"
 
 @interface ListsViewController ()<AddListViewControllerDelegate,UITableViewDataSource,UITableViewDelegate>
 
@@ -18,6 +19,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *addLabel;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *addBarButton;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UILabel *colorLabel;
 
 @end
 
@@ -75,16 +77,24 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    TableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     if(!cell){
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
+        cell = [[TableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
     }
     
     List *list = self.lists[indexPath.row];
     cell.textLabel.alpha = 0.9;
-    cell.textLabel.text = list.name;
-    [cell.textLabel setTextColor:list.color];
+    
+    cell.nameLabel.text = list.name;
+    cell.friendsNumberLabel.text = @"1";
+    cell.friendsNumberImage.alpha = 0.7;
+    cell.colorLabel.alpha = 0.65;
+    cell.colorLabel.text = @"";
+    [cell.colorLabel.layer setCornerRadius:15];
+    [cell.colorLabel.layer setBackgroundColor:[list.color CGColor]];
+    
+    
     
     return cell;
 }
@@ -95,6 +105,8 @@
 }
 
 #pragma mark- Helper methods
+
+
 
 -(void) checkForEmptiness
 {

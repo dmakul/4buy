@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2633E5DA1B439EF500BBD861 /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2633E5D91B439EF500BBD861 /* TableViewCell.m */; };
 		2691AF821B4259AA00F8965A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2691AF811B4259AA00F8965A /* main.m */; };
 		2691AF851B4259AA00F8965A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2691AF841B4259AA00F8965A /* AppDelegate.m */; };
 		2691AF881B4259AA00F8965A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2691AF871B4259AA00F8965A /* ViewController.m */; };
@@ -20,6 +21,7 @@
 		2691AFB11B428AC200F8965A /* 1435670918_group.png in Resources */ = {isa = PBXBuildFile; fileRef = 2691AFB01B428AC200F8965A /* 1435670918_group.png */; };
 		2691AFB41B42975A00F8965A /* AddListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2691AFB31B42975A00F8965A /* AddListViewController.m */; };
 		2691AFB71B42A01700F8965A /* List.m in Sources */ = {isa = PBXBuildFile; fileRef = 2691AFB61B42A01700F8965A /* List.m */; };
+		2691AFBA1B42C76D00F8965A /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2691AFB91B42C76D00F8965A /* ProfileViewController.m */; };
 		3B001A411C84D7A89224B244 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE7034234675364BFDB845EC /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2633E5D81B439EF500BBD861 /* TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
+		2633E5D91B439EF500BBD861 /* TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
 		2691AF7C1B4259AA00F8965A /* 4Buy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 4Buy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2691AF801B4259AA00F8965A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2691AF811B4259AA00F8965A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -58,6 +62,8 @@
 		2691AFB31B42975A00F8965A /* AddListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddListViewController.m; sourceTree = "<group>"; };
 		2691AFB51B42A01700F8965A /* List.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = List.h; sourceTree = "<group>"; };
 		2691AFB61B42A01700F8965A /* List.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = List.m; sourceTree = "<group>"; };
+		2691AFB81B42C76D00F8965A /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		2691AFB91B42C76D00F8965A /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		29D698E9550094792C5565B3 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		7171A919B392921C705C7250 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		AE7034234675364BFDB845EC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,8 +117,12 @@
 				2691AF861B4259AA00F8965A /* ViewController.h */,
 				2691AF871B4259AA00F8965A /* ViewController.m */,
 				2691AF891B4259AA00F8965A /* Main.storyboard */,
+				2691AFB81B42C76D00F8965A /* ProfileViewController.h */,
+				2691AFB91B42C76D00F8965A /* ProfileViewController.m */,
 				2691AFB21B42975A00F8965A /* AddListViewController.h */,
 				2691AFB31B42975A00F8965A /* AddListViewController.m */,
+				2633E5D81B439EF500BBD861 /* TableViewCell.h */,
+				2633E5D91B439EF500BBD861 /* TableViewCell.m */,
 				2691AFAA1B42629400F8965A /* ListsViewController.h */,
 				2691AFAB1B42629400F8965A /* ListsViewController.m */,
 				2691AFB51B42A01700F8965A /* List.h */,
@@ -310,7 +320,9 @@
 			files = (
 				2691AFB71B42A01700F8965A /* List.m in Sources */,
 				2691AFAC1B42629400F8965A /* ListsViewController.m in Sources */,
+				2691AFBA1B42C76D00F8965A /* ProfileViewController.m in Sources */,
 				2691AF881B4259AA00F8965A /* ViewController.m in Sources */,
+				2633E5DA1B439EF500BBD861 /* TableViewCell.m in Sources */,
 				2691AFB41B42975A00F8965A /* AddListViewController.m in Sources */,
 				2691AF851B4259AA00F8965A /* AppDelegate.m in Sources */,
 				2691AFA91B425FF200F8965A /* SignUpViewController.m in Sources */,

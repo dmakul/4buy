@@ -55,7 +55,7 @@
                                             // Do stuff after successful login.
                                             [self enterApp];
                                         } else {
-                                            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Произошла ошибка" message:@"Повторите заново" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil];
+                                            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Неверный логин или пароль" message:@"Повторите заново" delegate:nil cancelButtonTitle:@"ОК" otherButtonTitles:nil];
                                             [alert show];
                                         }
                                     }];

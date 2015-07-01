@@ -17,6 +17,9 @@
 @property (strong, nonatomic) IBOutlet UIButton *yellowColorButton;
 @property (strong, nonatomic) IBOutlet UIButton *orangeColorButton;
 @property (strong, nonatomic) IBOutlet UIButton *blackColorButton;
+@property (nonatomic) UIColor *clr;
+@property (nonatomic) UIColor *clr2;
+@property (nonatomic) UIColor *selectedColor;
 
 @end
 
@@ -24,6 +27,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.clr2 = [UIColor colorWithRed:0x47/255.0f
+                               green:0x98/255.0f
+                                blue:0xFF/255.0f alpha:1];
+    
+    self.clr = [UIColor colorWithRed:0x29/255.0f
+                                   green:0xC0/255.0f
+                                    blue:0x62/255.0f alpha:1];
+
     
     [self setUpScreen];
     // Do any additional setup after loading the view.
@@ -38,32 +50,73 @@
 - (IBAction)AdButtonPressed:(UIBarButtonItem *)sender {
     List *list = [List new];
     list.name = self.nameTextField.text;
-    list.color = self.nameTextField.textColor;
+    if(self.selectedColor)  list.color = self.selectedColor; else list.color = [UIColor blackColor];
     [self.delegate didAddList:list];
 }
 
 #pragma mark - color pick methods
 
 - (IBAction)redButtonPressed:(UIButton *)sender {
-    self.nameTextField.textColor = [UIColor redColor];
+    self.selectedColor = [UIColor redColor];
+    [self.redColorButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
+    [self.redColorButton.layer setBorderWidth:3.2];
+    [self.blueColorButton.layer setBorderColor:[self.clr2 CGColor]];
+    [self.greenColorButton.layer setBorderColor:[self.clr CGColor]];
+    [self.yellowColorButton.layer setBorderColor:[[UIColor magentaColor] CGColor]];
+    [self.orangeColorButton.layer setBorderColor:[[UIColor orangeColor] CGColor]];
+    [self.blackColorButton.layer setBorderColor:[[UIColor brownColor] CGColor]];
 }
 - (IBAction)blueButtonPressed:(UIButton *)sender {
-    self.nameTextField.textColor = [UIColor blueColor];
+    self.selectedColor = self.clr2;
+    [self.blueColorButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
+    [self.blueColorButton.layer setBorderWidth:3.2];
+    [self.redColorButton.layer setBorderColor:[[UIColor redColor] CGColor]];
+    [self.greenColorButton.layer setBorderColor:[self.clr CGColor]];
+    [self.yellowColorButton.layer setBorderColor:[[UIColor magentaColor] CGColor]];
+    [self.orangeColorButton.layer setBorderColor:[[UIColor orangeColor] CGColor]];
+    [self.blackColorButton.layer setBorderColor:[[UIColor brownColor] CGColor]];
 }
 - (IBAction)greenButtonPressed:(UIButton *)sender {
-    UIColor* clr = [UIColor colorWithRed:0x29/255.0f
-                                   green:0xC0/255.0f
-                                    blue:0x62/255.0f alpha:1];
-    self.nameTextField.textColor = clr;
+    self.selectedColor = self.clr;
+    [self.greenColorButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
+    [self.greenColorButton.layer setBorderWidth:3.2];
+    [self.redColorButton.layer setBorderColor:[[UIColor redColor] CGColor]];
+    [self.blueColorButton.layer setBorderColor:[self.clr2 CGColor]];
+    [self.yellowColorButton.layer setBorderColor:[[UIColor magentaColor] CGColor]];
+    [self.orangeColorButton.layer setBorderColor:[[UIColor orangeColor] CGColor]];
+    [self.blackColorButton.layer setBorderColor:[[UIColor brownColor] CGColor]];
 }
 - (IBAction)magentaButtonPressed:(UIButton *)sender {
-    self.nameTextField.textColor = [UIColor magentaColor];
+    self.selectedColor = [UIColor magentaColor];
+    [self.yellowColorButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
+    [self.yellowColorButton.layer setBorderWidth:3.2];
+    [self.redColorButton.layer setBorderColor:[[UIColor redColor] CGColor]];
+    [self.blueColorButton.layer setBorderColor:[self.clr2 CGColor]];
+    [self.greenColorButton.layer setBorderColor:[self.clr CGColor]];
+    [self.orangeColorButton.layer setBorderColor:[[UIColor orangeColor] CGColor]];
+    [self.blackColorButton.layer setBorderColor:[[UIColor brownColor] CGColor]];
 }
+
 - (IBAction)orangeButtonPressed:(UIButton *)sender {
-    self.nameTextField.textColor = [UIColor orangeColor];
+    self.selectedColor = [UIColor orangeColor];
+    [self.orangeColorButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
+    [self.orangeColorButton.layer setBorderWidth:3.2];
+    [self.redColorButton.layer setBorderColor:[[UIColor redColor] CGColor]];
+    [self.blueColorButton.layer setBorderColor:[self.clr2 CGColor]];
+    [self.greenColorButton.layer setBorderColor:[self.clr CGColor]];
+    [self.yellowColorButton.layer setBorderColor:[[UIColor magentaColor] CGColor]];
+    [self.blackColorButton.layer setBorderColor:[[UIColor brownColor] CGColor]];
 }
 - (IBAction)brownButtonPressed:(UIButton *)sender {
-    self.nameTextField.textColor = [UIColor brownColor];
+    self.selectedColor = [UIColor brownColor];
+    [self.blackColorButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
+    [self.blackColorButton.layer setBorderWidth:3.2];
+    [self.redColorButton.layer setBorderColor:[[UIColor redColor] CGColor]];
+    [self.blueColorButton.layer setBorderColor:[self.clr2 CGColor]];
+    [self.greenColorButton.layer setBorderColor:[self.clr CGColor]];
+    [self.yellowColorButton.layer setBorderColor:[[UIColor magentaColor] CGColor]];
+    [self.orangeColorButton.layer setBorderColor:[[UIColor orangeColor] CGColor]];
+
 }
 
 #pragma mark - Helper methods
@@ -80,12 +133,9 @@
 
 -(void) setUpScreen
 {
-    UIColor* clr = [UIColor colorWithRed:0x29/255.0f
-                                   green:0xC0/255.0f
-                                    blue:0x62/255.0f alpha:1];
     [self addColor:[UIColor redColor] forButton:self.redColorButton];
-    [self addColor:[UIColor blueColor] forButton:self.blueColorButton];
-    [self addColor:clr forButton:self.greenColorButton];
+    [self addColor:self.clr2 forButton:self.blueColorButton];
+    [self addColor:self.clr forButton:self.greenColorButton];
     [self addColor:[UIColor magentaColor] forButton:self.yellowColorButton];
     [self addColor:[UIColor orangeColor] forButton:self.orangeColorButton];
     [self addColor:[UIColor brownColor] forButton:self.blackColorButton];
