@@ -14,6 +14,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *friendsNumberLabel;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 
+@property (strong, nonatomic) IBOutlet UILabel *listLabel;
 
 
 @end

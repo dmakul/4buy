@@ -20,11 +20,41 @@
     
     [Parse setApplicationId:@"YRmvLZf2ahyIZCAx7Q3JS4AID0MbpmeT0xac92Xv"
                   clientKey:@"4OH73vqvzSm3q9oZpDZkCkMrxf7wwmLDc4POGqoO"];
+
+    
+    
+    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
+     setTitleTextAttributes:
+     @{NSForegroundColorAttributeName:[UIColor whiteColor],
+       NSFontAttributeName:[UIFont systemFontOfSize:14.0]
+       }
+     forState:UIControlStateNormal];
+    
+    self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    
+    UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"ViewController"];
+    
+    if([PFUser currentUser])
+        viewController = [storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
+
+    
+    self.window.rootViewController = viewController;
+    [self.window makeKeyAndVisible];
+    
+    
     
     UIImage *myImage = [UIImage imageNamed:@"1.jpg"];
     [[UINavigationBar appearance] setBackgroundImage:myImage forBarMetrics:UIBarMetricsDefault];
     // Override point for customization after application launch.
     return YES;
+}
+
+- (void) logout{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"ViewController"];
+    self.window.rootViewController = controller;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

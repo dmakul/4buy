@@ -8,6 +8,8 @@
 
 #import "AddListViewController.h"
 #import "List.h"
+#import <Parse/Parse.h>
+#import <TNRadioButtonGroup/TNRadioButtonGroup.h>
 
 @interface AddListViewController ()
 @property (strong, nonatomic) IBOutlet UITextField *nameTextField;
@@ -19,7 +21,9 @@
 @property (strong, nonatomic) IBOutlet UIButton *blackColorButton;
 @property (nonatomic) UIColor *clr;
 @property (nonatomic) UIColor *clr2;
-@property (nonatomic) UIColor *selectedColor;
+@property (nonatomic) NSString *selectedColor;
+
+@property (nonatomic) TNRadioButtonGroup *sexGroup;
 
 @end
 
@@ -48,16 +52,19 @@
 
 
 - (IBAction)AdButtonPressed:(UIBarButtonItem *)sender {
-    List *list = [List new];
-    list.name = self.nameTextField.text;
-    if(self.selectedColor)  list.color = self.selectedColor; else list.color = [UIColor blackColor];
+    PFObject *list = [PFObject objectWithClassName:@"List"];
+    list[@"name"] = self.nameTextField.text;
+    list[@"userId"] = [PFUser currentUser];
+    if(self.selectedColor)  list[@"color"] = self.selectedColor; else list[@"color"] = @"000000";
+    [list saveInBackground];
+    //list.products = [NSMutableArray new];
     [self.delegate didAddList:list];
 }
 
 #pragma mark - color pick methods
 
 - (IBAction)redButtonPressed:(UIButton *)sender {
-    self.selectedColor = [UIColor redColor];
+    self.selectedColor = @"#FF0000";
     [self.redColorButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
     [self.redColorButton.layer setBorderWidth:3.2];
     [self.blueColorButton.layer setBorderColor:[self.clr2 CGColor]];
@@ -67,7 +74,7 @@
     [self.blackColorButton.layer setBorderColor:[[UIColor brownColor] CGColor]];
 }
 - (IBAction)blueButtonPressed:(UIButton *)sender {
-    self.selectedColor = self.clr2;
+    self.selectedColor = @"#4798FF";
     [self.blueColorButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
     [self.blueColorButton.layer setBorderWidth:3.2];
     [self.redColorButton.layer setBorderColor:[[UIColor redColor] CGColor]];
@@ -77,7 +84,7 @@
     [self.blackColorButton.layer setBorderColor:[[UIColor brownColor] CGColor]];
 }
 - (IBAction)greenButtonPressed:(UIButton *)sender {
-    self.selectedColor = self.clr;
+    self.selectedColor = @"#29C062";
     [self.greenColorButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
     [self.greenColorButton.layer setBorderWidth:3.2];
     [self.redColorButton.layer setBorderColor:[[UIColor redColor] CGColor]];
@@ -87,7 +94,7 @@
     [self.blackColorButton.layer setBorderColor:[[UIColor brownColor] CGColor]];
 }
 - (IBAction)magentaButtonPressed:(UIButton *)sender {
-    self.selectedColor = [UIColor magentaColor];
+    self.selectedColor = @"#FF00FF";
     [self.yellowColorButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
     [self.yellowColorButton.layer setBorderWidth:3.2];
     [self.redColorButton.layer setBorderColor:[[UIColor redColor] CGColor]];
@@ -98,7 +105,7 @@
 }
 
 - (IBAction)orangeButtonPressed:(UIButton *)sender {
-    self.selectedColor = [UIColor orangeColor];
+    self.selectedColor = @"#FF7F00";
     [self.orangeColorButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
     [self.orangeColorButton.layer setBorderWidth:3.2];
     [self.redColorButton.layer setBorderColor:[[UIColor redColor] CGColor]];
@@ -108,7 +115,7 @@
     [self.blackColorButton.layer setBorderColor:[[UIColor brownColor] CGColor]];
 }
 - (IBAction)brownButtonPressed:(UIButton *)sender {
-    self.selectedColor = [UIColor brownColor];
+    self.selectedColor = @"#996633";
     [self.blackColorButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
     [self.blackColorButton.layer setBorderWidth:3.2];
     [self.redColorButton.layer setBorderColor:[[UIColor redColor] CGColor]];
@@ -140,7 +147,7 @@
     [self addColor:[UIColor orangeColor] forButton:self.orangeColorButton];
     [self addColor:[UIColor brownColor] forButton:self.blackColorButton];
     
-    
+ 
     
     UIColor *color = [UIColor grayColor];
     if ([self.nameTextField respondsToSelector:@selector(setAttributedPlaceholder:)]) {
@@ -150,7 +157,7 @@
         // TODO: Add fall-back code to set placeholder color.
     }
     
-    UIView *lineView1 = [[UIView alloc] initWithFrame:CGRectMake(25, 130, self.view.bounds.size.width-53, 0.5)];
+    UIView *lineView1 = [[UIView alloc] initWithFrame:CGRectMake(25, 110, self.view.bounds.size.width-53, 0.5)];
     lineView1.backgroundColor = color;
     [self.view addSubview:lineView1];
 }

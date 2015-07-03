@@ -9,11 +9,16 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+
+
+
 @interface List : NSObject
 
-@property (nonatomic) UIColor *color;
-@property (nonatomic) NSString *name;
+//@property (nonatomic) UIColor *color;
+//@property (nonatomic) NSString *name;
+//@property (nonatomic) NSMutableArray *products;
 
-@property (nonatomic) NSMutableArray *products;
+
+
 
 @end

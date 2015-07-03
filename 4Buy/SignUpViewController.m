@@ -48,8 +48,8 @@
         return;
     }
     
-    if(self.loginTextField.text.length < 5){
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Произошла ошибка" message:@"Длина логина должна составлять больше 5 символов" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    if(self.loginTextField.text.length < 4){
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Произошла ошибка" message:@"Длина логина должна составлять больше 3 символов" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
         return;
     }
@@ -67,7 +67,7 @@
     }
     
     if(self.passwordTextField.text.length < 5){
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Произошла ошибка" message:@"Длина пароля должна составлять больше 5 символов" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Произошла ошибка" message:@"Длина пароля должна составлять больше 4 символов" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
         return;
     }
@@ -87,7 +87,6 @@
         
         if(succeeded){
             [self enterApp];
-            NSLog(@"%@",user);
         }
         
     }];

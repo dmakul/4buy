@@ -7,7 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2604E7DB1B46432300029189 /* FriendListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2604E7DA1B46432300029189 /* FriendListViewController.m */; };
+		2604E7DD1B464AD800029189 /* 1435916693_icon-111-search.png in Resources */ = {isa = PBXBuildFile; fileRef = 2604E7DC1B464AD800029189 /* 1435916693_icon-111-search.png */; };
 		2633E5DA1B439EF500BBD861 /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2633E5D91B439EF500BBD861 /* TableViewCell.m */; };
+		2633E5DD1B43BF0D00BBD861 /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 2633E5DC1B43BF0D00BBD861 /* Product.m */; };
+		2633E5E01B43C98D00BBD861 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2633E5DF1B43C98D00BBD861 /* ListViewController.m */; };
+		2633E5E31B43E96D00BBD861 /* AddProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2633E5E21B43E96D00BBD861 /* AddProductViewController.m */; };
+		264E1D271B45119A00650179 /* UIColor+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 264E1D261B45119A00650179 /* UIColor+Helpers.m */; };
+		264E1D2A1B451B7D00650179 /* List.m in Sources */ = {isa = PBXBuildFile; fileRef = 264E1D291B451B7D00650179 /* List.m */; };
+		264E1D2D1B452C7100650179 /* TableViewCell2.m in Sources */ = {isa = PBXBuildFile; fileRef = 264E1D2C1B452C7100650179 /* TableViewCell2.m */; };
 		2691AF821B4259AA00F8965A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2691AF811B4259AA00F8965A /* main.m */; };
 		2691AF851B4259AA00F8965A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2691AF841B4259AA00F8965A /* AppDelegate.m */; };
 		2691AF881B4259AA00F8965A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2691AF871B4259AA00F8965A /* ViewController.m */; };
@@ -20,7 +28,6 @@
 		2691AFAC1B42629400F8965A /* ListsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2691AFAB1B42629400F8965A /* ListsViewController.m */; };
 		2691AFB11B428AC200F8965A /* 1435670918_group.png in Resources */ = {isa = PBXBuildFile; fileRef = 2691AFB01B428AC200F8965A /* 1435670918_group.png */; };
 		2691AFB41B42975A00F8965A /* AddListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2691AFB31B42975A00F8965A /* AddListViewController.m */; };
-		2691AFB71B42A01700F8965A /* List.m in Sources */ = {isa = PBXBuildFile; fileRef = 2691AFB61B42A01700F8965A /* List.m */; };
 		2691AFBA1B42C76D00F8965A /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2691AFB91B42C76D00F8965A /* ProfileViewController.m */; };
 		3B001A411C84D7A89224B244 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE7034234675364BFDB845EC /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -36,8 +43,23 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2604E7D91B46432300029189 /* FriendListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendListViewController.h; sourceTree = "<group>"; };
+		2604E7DA1B46432300029189 /* FriendListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendListViewController.m; sourceTree = "<group>"; };
+		2604E7DC1B464AD800029189 /* 1435916693_icon-111-search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "1435916693_icon-111-search.png"; path = "../../../Downloads/1435916693_icon-111-search.png"; sourceTree = "<group>"; };
 		2633E5D81B439EF500BBD861 /* TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
 		2633E5D91B439EF500BBD861 /* TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
+		2633E5DB1B43BF0D00BBD861 /* Product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Product.h; sourceTree = "<group>"; };
+		2633E5DC1B43BF0D00BBD861 /* Product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Product.m; sourceTree = "<group>"; };
+		2633E5DE1B43C98D00BBD861 /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
+		2633E5DF1B43C98D00BBD861 /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
+		2633E5E11B43E96D00BBD861 /* AddProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddProductViewController.h; sourceTree = "<group>"; };
+		2633E5E21B43E96D00BBD861 /* AddProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddProductViewController.m; sourceTree = "<group>"; };
+		264E1D251B45119A00650179 /* UIColor+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Helpers.h"; sourceTree = "<group>"; };
+		264E1D261B45119A00650179 /* UIColor+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Helpers.m"; sourceTree = "<group>"; };
+		264E1D281B451B7D00650179 /* List.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = List.h; sourceTree = "<group>"; };
+		264E1D291B451B7D00650179 /* List.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = List.m; sourceTree = "<group>"; };
+		264E1D2B1B452C7100650179 /* TableViewCell2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCell2.h; sourceTree = "<group>"; };
+		264E1D2C1B452C7100650179 /* TableViewCell2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCell2.m; sourceTree = "<group>"; };
 		2691AF7C1B4259AA00F8965A /* 4Buy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 4Buy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2691AF801B4259AA00F8965A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2691AF811B4259AA00F8965A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -56,12 +78,10 @@
 		2691AFA81B425FF200F8965A /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		2691AFAA1B42629400F8965A /* ListsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListsViewController.h; sourceTree = "<group>"; };
 		2691AFAB1B42629400F8965A /* ListsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListsViewController.m; sourceTree = "<group>"; };
-		2691AFAF1B426A8100F8965A /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		2691AFAF1B426A8100F8965A /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		2691AFB01B428AC200F8965A /* 1435670918_group.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 1435670918_group.png; path = ../../../Downloads/1435670918_group.png; sourceTree = "<group>"; };
 		2691AFB21B42975A00F8965A /* AddListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddListViewController.h; sourceTree = "<group>"; };
 		2691AFB31B42975A00F8965A /* AddListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddListViewController.m; sourceTree = "<group>"; };
-		2691AFB51B42A01700F8965A /* List.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = List.h; sourceTree = "<group>"; };
-		2691AFB61B42A01700F8965A /* List.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = List.m; sourceTree = "<group>"; };
 		2691AFB81B42C76D00F8965A /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		2691AFB91B42C76D00F8965A /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		29D698E9550094792C5565B3 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -117,6 +137,14 @@
 				2691AF861B4259AA00F8965A /* ViewController.h */,
 				2691AF871B4259AA00F8965A /* ViewController.m */,
 				2691AF891B4259AA00F8965A /* Main.storyboard */,
+				2604E7D91B46432300029189 /* FriendListViewController.h */,
+				2604E7DA1B46432300029189 /* FriendListViewController.m */,
+				264E1D2B1B452C7100650179 /* TableViewCell2.h */,
+				264E1D2C1B452C7100650179 /* TableViewCell2.m */,
+				2633E5E11B43E96D00BBD861 /* AddProductViewController.h */,
+				2633E5E21B43E96D00BBD861 /* AddProductViewController.m */,
+				2633E5DE1B43C98D00BBD861 /* ListViewController.h */,
+				2633E5DF1B43C98D00BBD861 /* ListViewController.m */,
 				2691AFB81B42C76D00F8965A /* ProfileViewController.h */,
 				2691AFB91B42C76D00F8965A /* ProfileViewController.m */,
 				2691AFB21B42975A00F8965A /* AddListViewController.h */,
@@ -125,8 +153,12 @@
 				2633E5D91B439EF500BBD861 /* TableViewCell.m */,
 				2691AFAA1B42629400F8965A /* ListsViewController.h */,
 				2691AFAB1B42629400F8965A /* ListsViewController.m */,
-				2691AFB51B42A01700F8965A /* List.h */,
-				2691AFB61B42A01700F8965A /* List.m */,
+				264E1D281B451B7D00650179 /* List.h */,
+				264E1D291B451B7D00650179 /* List.m */,
+				264E1D251B45119A00650179 /* UIColor+Helpers.h */,
+				264E1D261B45119A00650179 /* UIColor+Helpers.m */,
+				2633E5DB1B43BF0D00BBD861 /* Product.h */,
+				2633E5DC1B43BF0D00BBD861 /* Product.m */,
 				2691AFA71B425FF200F8965A /* SignUpViewController.h */,
 				2691AFA81B425FF200F8965A /* SignUpViewController.m */,
 				2691AF8C1B4259AA00F8965A /* Images.xcassets */,
@@ -139,6 +171,7 @@
 		2691AF7F1B4259AA00F8965A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2604E7DC1B464AD800029189 /* 1435916693_icon-111-search.png */,
 				2691AFB01B428AC200F8965A /* 1435670918_group.png */,
 				2691AFA51B4259BB00F8965A /* 1.jpg */,
 				2691AF801B4259AA00F8965A /* Info.plist */,
@@ -268,6 +301,7 @@
 				2691AFA61B4259BB00F8965A /* 1.jpg in Resources */,
 				2691AF901B4259AA00F8965A /* LaunchScreen.xib in Resources */,
 				2691AF8D1B4259AA00F8965A /* Images.xcassets in Resources */,
+				2604E7DD1B464AD800029189 /* 1435916693_icon-111-search.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,14 +352,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2691AFB71B42A01700F8965A /* List.m in Sources */,
+				264E1D2A1B451B7D00650179 /* List.m in Sources */,
+				2633E5DD1B43BF0D00BBD861 /* Product.m in Sources */,
+				2633E5E01B43C98D00BBD861 /* ListViewController.m in Sources */,
 				2691AFAC1B42629400F8965A /* ListsViewController.m in Sources */,
 				2691AFBA1B42C76D00F8965A /* ProfileViewController.m in Sources */,
 				2691AF881B4259AA00F8965A /* ViewController.m in Sources */,
+				2604E7DB1B46432300029189 /* FriendListViewController.m in Sources */,
 				2633E5DA1B439EF500BBD861 /* TableViewCell.m in Sources */,
 				2691AFB41B42975A00F8965A /* AddListViewController.m in Sources */,
+				264E1D2D1B452C7100650179 /* TableViewCell2.m in Sources */,
 				2691AF851B4259AA00F8965A /* AppDelegate.m in Sources */,
 				2691AFA91B425FF200F8965A /* SignUpViewController.m in Sources */,
+				264E1D271B45119A00650179 /* UIColor+Helpers.m in Sources */,
+				2633E5E31B43E96D00BBD861 /* AddProductViewController.m in Sources */,
 				2691AF821B4259AA00F8965A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

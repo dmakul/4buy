@@ -8,6 +8,7 @@
 
 #import "ProfileViewController.h"
 #import <Parse/Parse.h>
+#import "AppDelegate.h"
 
 @interface ProfileViewController ()
 @property (strong, nonatomic) IBOutlet UIButton *logOutButton;
@@ -29,8 +30,9 @@
 
 - (IBAction)logOutButtonPressed:(UIButton *)sender {
     [PFUser logOutInBackgroundWithBlock:^(NSError *error){
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }];
+        AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+        [delegate logout];
+    }];    
 }
 
 

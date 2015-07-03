@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "List.h"
+#import <Parse/Parse.h>
 
 
 @protocol AddListViewControllerDelegate <NSObject>
 
--(void) didAddList: (List *) newList;
+-(void) didAddList: (PFObject *) newList;
 
 @end
 
