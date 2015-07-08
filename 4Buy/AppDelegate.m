@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
+#import <ChameleonFramework/Chameleon.h>
 
 @interface AppDelegate ()
 
@@ -44,9 +45,6 @@
     [self.window makeKeyAndVisible];
     
     
-    
-    UIImage *myImage = [UIImage imageNamed:@"1.jpg"];
-    [[UINavigationBar appearance] setBackgroundImage:myImage forBarMetrics:UIBarMetricsDefault];
     // Override point for customization after application launch.
     return YES;
 }

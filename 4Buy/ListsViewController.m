@@ -11,10 +11,16 @@
 #import "ListViewController.h"
 #import <Parse/Parse.h>
 #import "TableViewCell.h"
+#import <VBFPopFlatButton/VBFPopFlatButton.h>
 #import "ListViewController.h"
 #import "UIColor+Helpers.h"
-#import <UIScrollView+EmptyDataSet.h>
+#import "UIScrollView+EmptyDataSet.h"
 #import <MBProgressHUD/MBProgressHUD.h>
+#import <ChameleonFramework/Chameleon.h>
+#import <FlatUIKit/UIColor+FlatUI.h>
+#import <FlatUIKit/UIFont+FlatUI.h>
+#import <Masonry/Masonry.h>
+#import <FlatUIKit/FlatUIKit.h>
 
 @interface ListsViewController ()<AddListViewControllerDelegate,UITableViewDataSource,UITableViewDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 
@@ -23,6 +29,8 @@
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *editButton;
 @property (nonatomic) NSMutableArray *productsArray;
+@property (nonatomic) VBFPopFlatButton *flatPlainButton;
+@property (nonatomic) NSMutableArray *searchResult;
 
 @end
 
@@ -34,6 +42,7 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 
     [self downloadLists];
+
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -44,8 +53,9 @@
     self.tableView.tableFooterView = [UIView new];
     
     
-  
     [self setUpScreen];
+    
+    self.searchResult = [NSMutableArray arrayWithCapacity:[self.lists count]];
     // Do any additional setup after loading the view.
 }
 
@@ -77,27 +87,34 @@
     }
 }
 
+#pragma mark - Search Delegate methods
+
+
+
+
 #pragma mark - EmptyList delegate methods
 
-- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView {
+- (UIView *)customViewForEmptyDataSet:(UIScrollView *)scrollView
+{
+    UIView *customView = [[UIView alloc] init];
     
-    NSString *text = @"У Вас нету ни одного списка";
-    NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:18.0],
-                                 NSForegroundColorAttributeName: [UIColor darkGrayColor]};
+    UILabel *label = [[UILabel alloc] init];
     
-    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
+    label.text = @"Нету списков";
+    label.textColor = [UIColor asbestosColor];
+    label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:22.0f];
+    [customView addSubview:label];
+
+    
+    [label mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(customView.mas_centerX);
+        make.centerY.equalTo(customView.mas_centerY);
+    }];
+    
+    return customView;
 }
 
-- (NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state {
-    
-    NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:15.0]};
-    
-    return [[NSAttributedString alloc] initWithString:@"СОЗДАТЬ НОВЫЙ СПИСОК" attributes:attributes];
-}
 
-- (void)emptyDataSetDidTapButton:(UIScrollView *)scrollView {
-    [self performSegueWithIdentifier:@"addNewList" sender:nil];
-}
 
 #pragma mark - AddList Delegate methods
 -(void)didAddList:(PFObject *)newList
@@ -144,6 +161,8 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    
+    
     return [self.lists count];
 }
 
@@ -151,10 +170,21 @@
 {
     if(editingStyle == UITableViewCellEditingStyleDelete){
         PFObject *list = self.lists[indexPath.row];
+        PFQuery *query = [PFQuery queryWithClassName:@"ProductList"];
+        [query whereKey:@"listId" equalTo:list];
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error){
+            if(!error){
+                for(PFObject *productObject in objects){
+                    [productObject deleteInBackground];
+                }
+            }
+        }];
         [list deleteInBackground];
         [self.lists removeObjectAtIndex:indexPath.row];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView reloadData];
+        
+        
     }
     
     if(self.lists.count == 0){
@@ -177,7 +207,6 @@
     cell.nameLabel.text = list[@"name"];
     cell.friendsNumberLabel.text = @"1";
     cell.friendsNumberImage.alpha = 0.7;
-    cell.colorLabel.alpha = 0.65;
     cell.colorLabel.text = @"";
     [cell.colorLabel.layer setCornerRadius:18];
     
@@ -191,7 +220,6 @@
             for(PFObject *productObject in objects){
                 [self.productsArray addObject:productObject[@"name"]];
             }
-            NSLog(@"%@", [self.productsArray componentsJoinedByString:@", "]);
             cell.listLabel.text = [self.productsArray componentsJoinedByString:@", "];
         }
     }];
@@ -214,12 +242,8 @@
 
 -(void) setUpScreen
 {
-    [[UINavigationBar appearance] setTitleTextAttributes:
-     [NSDictionary dictionaryWithObjectsAndKeys:
-      [UIFont fontWithName:@"Helvetica Neue" size:11.0],NSFontAttributeName,
-      nil]];
     
-
+    [self.navigationController.navigationBar configureFlatNavigationBarWithColor:[UIColor emerlandColor]];
     
     self.navigationItem.hidesBackButton = YES;
     self.navigationItem.title = @"Списки";
@@ -231,6 +255,7 @@
     self.navigationController.navigationBar.translucent = NO;
 }
 
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -241,11 +266,13 @@
         controller.delegate = self;
     }
     
-    if([segue.destinationViewController isKindOfClass:[ListViewController class]]){
-        ListViewController *nextVC = segue.destinationViewController;
+    if ([[segue identifier] isEqualToString:@"viewList"]) {
+        UINavigationController *nextVC = segue.destinationViewController;
+        ListViewController *controller = [nextVC viewControllers][0];
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        nextVC.list = self.lists[indexPath.row];
+        controller.list = self.lists[indexPath.row];
     }
+    
 }
 
 

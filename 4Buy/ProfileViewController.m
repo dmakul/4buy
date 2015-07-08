@@ -9,9 +9,18 @@
 #import "ProfileViewController.h"
 #import <Parse/Parse.h>
 #import "AppDelegate.h"
+#import <FlatUIKit/UIColor+FlatUI.h>
+#import <FlatUIKit/UIFont+FlatUI.h>
+#import <FlatUIKit/NSString+Icons.h>
+#import <FlatUIKit/FlatUIKit.h>
+#import <ChameleonFramework/Chameleon.h>
+#import <Masonry/Masonry.h>
+
+
 
 @interface ProfileViewController ()
-@property (strong, nonatomic) IBOutlet UIButton *logOutButton;
+
+@property (nonatomic) FUIButton *logOutButton;
 
 @end
 
@@ -28,23 +37,46 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)logOutButtonPressed:(UIButton *)sender {
+#pragma mark - Selectors
+
+-(void) logOutButtonPressed {
     [PFUser logOutInBackgroundWithBlock:^(NSError *error){
         AppDelegate *delegate = [UIApplication sharedApplication].delegate;
         [delegate logout];
-    }];    
+    }];
 }
-
-
 
 
 #pragma mark - Helper methods
 
--(void) setUpScreen
-{
-    [self.logOutButton.layer setBorderColor:[[UIColor redColor]CGColor]];
-    [self.logOutButton.layer setBorderWidth:0.5];
-    [self.logOutButton.layer setCornerRadius:4];
+-(void) setUpScreen{
+    
+    [self logOutButtonAdded];
+    
+}
+
+
+-(void) logOutButtonAdded {
+    
+    self.logOutButton = [[FUIButton alloc] init];
+    self.logOutButton.buttonColor = [UIColor emerlandColor];
+    self.logOutButton.shadowColor = [UIColor nephritisColor];
+    self.logOutButton.shadowHeight = 3.0f;
+    self.logOutButton.cornerRadius = 5.0f;
+    self.logOutButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17.0f];
+    [self.logOutButton setTitle:@"Выйти с аккаунта" forState:UIControlStateNormal];
+    [self.logOutButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateNormal];
+    [self.logOutButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateHighlighted];
+    [self.view addSubview:self.logOutButton];
+    
+    [self.logOutButton addTarget:self action:@selector(logOutButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.logOutButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(-10);
+        make.bottom.mas_equalTo(-55);
+        make.height.mas_equalTo(self.view.frame.size.height / 15);
+        make.left.mas_equalTo(10);
+    }];
     
 }
 /*

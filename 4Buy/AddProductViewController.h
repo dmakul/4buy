@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Product.h"
 #import <Parse/Parse.h>
 
 
@@ -20,6 +19,7 @@
 @interface AddProductViewController : UIViewController
 
 @property (nonatomic) PFObject *list;
+@property (nonatomic) PFObject *product;
 
 @property id<AddProductViewControllerDelegate> delegate;
 

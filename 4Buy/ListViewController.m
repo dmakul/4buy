@@ -1,25 +1,35 @@
 //
+
 //  ListViewController.m
+
 //  4Buy
+
 //
+
 //  Created by Даурен Макул on 01.07.15.
+
 //  Copyright (c) 2015 Даурен Макул. All rights reserved.
+
 //
 
-#import "ListViewController.h"
-#import "AddProductViewController.h"
-#import "Product.h"
-#import "TableViewCell2.h"
+#import <MGSwipeTableCell/MGSwipeTableCell.h>
+#import <MGSwipeTableCell/MGSwipeButton.h>
+#import <ChameleonFramework/Chameleon.h>
 #import <MBProgressHUD/MBProgressHUD.h>
-#import <TNRadioButtonGroup/TNRadioButtonGroup.h>
+#import "UIScrollView+EmptyDataSet.h"
+#import <FlatUIKit/UIColor+FlatUI.h>
+#import "AddProductViewController.h"
+#import <FlatUIKit/FlatUIKit.h>
+#import "ListViewController.h"
+#import "EditViewController.h"
+#import <Masonry/Masonry.h>
+#import "TableViewCell2.h"
 
 
+@interface ListViewController () <EditViewControllerDelegate,DZNEmptyDataSetDelegate,DZNEmptyDataSetSource,MGSwipeTableCellDelegate,UITableViewDataSource,UITableViewDelegate,AddProductViewControllerDelegate>
 
-@interface ListViewController () <UITableViewDataSource,UITableViewDelegate,AddProductViewControllerDelegate>
-@property (strong, nonatomic) IBOutlet UIButton *addProductButton;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) IBOutlet UILabel *emptyListLabel;
-@property (nonatomic) TNRadioButtonGroup *sexGroup;
+
 @property (nonatomic) NSMutableArray *isDoneProducts;
 @property (nonatomic) NSMutableArray *isNotDoneProducts;
 
@@ -30,18 +40,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.tableView.hidden = YES;
-    self.emptyListLabel.hidden = YES;
-    
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
+
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-    
+    self.tableView.emptyDataSetDelegate = self;
+    self.tableView.emptyDataSetSource = self;
     
     [self downloadProducts];
-
     
     [self setUpScreen];
     // Do any additional setup after loading the view.
@@ -49,147 +56,230 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - EmptyList delegate methods
+
+- (UIView *)customViewForEmptyDataSet:(UIScrollView *)scrollView {
+    UIView *customView = [[UIView alloc] init];
+    UILabel *label = [[UILabel alloc] init];
+    label.text = @"Нету списков";
+    label.textColor = [UIColor asbestosColor];
+    label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:22.0f];
+    
+    [customView addSubview:label];
+
+    [label mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(customView.mas_centerX);
+        make.centerY.equalTo(customView.mas_centerY);
+    }];
+    return customView;
+}
 
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+
     if ([[segue identifier] isEqualToString:@"AddNewProduct"]) {
         UINavigationController *nextVC = segue.destinationViewController;
         AddProductViewController *controller = [nextVC viewControllers][0];
         controller.delegate = self;
         controller.list = self.list;
     }
+    if ([[segue identifier] isEqualToString:@"editProduct"]) {
+        UINavigationController *nextVC = segue.destinationViewController;
+        EditViewController *controller = [nextVC viewControllers][0];
+        controller.delegate = self;
+        controller.list = self.list;
+        controller.product = sender;
+    }
+    
+}
+
+#pragma mark - EditPRoduct Methods
+
+-(void)didEditProduct:(PFObject *)editedProduct {
+    if([editedProduct[@"isDone"]  isEqual: @(YES)]) {
+
+    }
+    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:0] animated:YES];
 }
 
 #pragma mark - AddProduct Methods
 
--(void)didAddProduct:(Product *)newProduct
-{
-    self.tableView.hidden = NO;
-    self.emptyListLabel.hidden = YES;
+
+-(void)didAddProduct:(PFObject *)newProduct {
     [self.isNotDoneProducts addObject:newProduct];
     [self.tableView reloadData];
-    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:1] animated:YES];
+    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:0] animated:YES];
 }
+
+
 
 #pragma mark - TableView Delegate mehtods
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return NO;
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if(editingStyle == UITableViewCellEditingStyleDelete){
+        PFObject *product = self.products[indexPath.row];
+        [product deleteInBackground];
+        if(indexPath.section == 0){
+            [self.isNotDoneProducts removeObject:product];
+            NSIndexPath *index = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
+            [self.tableView deleteRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationFade];
+        }
+        if(indexPath.section == 1) {
+            [self.isDoneProducts removeObject:product];
+            NSIndexPath *index = [NSIndexPath indexPathForRow:indexPath.row inSection:1];
+            [self.tableView deleteRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationFade];
+        }
+        [self.tableView reloadData];
+    }
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if(section == 0) return self.isNotDoneProducts.count;
     if(section == 1) return self.isDoneProducts.count;
     return 0;
 }
 
-
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    TableViewCell2 *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    if(!cell){
-        cell = [[TableViewCell2 alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString * reuseIdentifier = @"Cell";
+    
+    MGSwipeTableCell * cell = [self.tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+    
+    if (!cell) {
+        
+        cell = [[MGSwipeTableCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
+        
+    }
+    cell.textLabel.text = @"Title";
+    cell.detailTextLabel.text = @"Detail text";
+    UIColor *color = [UIColor emerlandColor];
+    
+    //configure left buttons
+    
+    if(indexPath.section == 0) {
+    
+        cell.leftButtons = @[[MGSwipeButton buttonWithTitle:@"" icon:[UIImage imageNamed:@"check.png"] backgroundColor:color]];
+        
+    } else {
+        cell.leftButtons = @[[MGSwipeButton buttonWithTitle:@"" icon:[UIImage imageNamed:@"cross.png"] backgroundColor:[UIColor alizarinColor]]];
     }
     
+    cell.delegate = self;
+    cell.leftExpansion.buttonIndex = 0;
+    cell.leftExpansion.fillOnTrigger = YES;
+    cell.leftSwipeSettings.transition = MGSwipeTransitionDrag;
     
     if(indexPath.section == 0){
         PFObject *product = self.isNotDoneProducts[indexPath.row];
-        cell.nameLabel.alpha = 1;
-        cell.amountLabel.alpha = 1;
-        cell.nameLabel.text = product[@"name"];
-        cell.amountLabel.text = product[@"amount"];
+        cell.textLabel.alpha = 1;
+        cell.detailTextLabel.alpha = 1;
+        cell.textLabel.text = product[@"name"];
+        cell.detailTextLabel.text = product[@"amount"];
     }
     
     if(indexPath.section == 1){
         PFObject *product = self.isDoneProducts[indexPath.row];
-        cell.nameLabel.alpha = 0.3;
-        cell.amountLabel.alpha = 0.3;
-        cell.nameLabel.text = product[@"name"];
-        cell.amountLabel.text = product[@"amount"];
+        cell.textLabel.alpha = 0.3;
+        cell.detailTextLabel.alpha = 0.3;
+        cell.textLabel.text = product[@"name"];
+        cell.detailTextLabel.text = product[@"amount"];
     }
-
-    
     return cell;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    //[self performSegueWithIdentifier:@"editProduct" sender:self.products[indexPath.row]];
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *headerView = [[UIView alloc] init];
+    headerView.backgroundColor = [UIColor clearColor];
+    
+    UILabel *label = [[UILabel alloc] init];
+    label.backgroundColor = [UIColor clearColor];
+    label.alpha = 0.8;
+    UIFont *helvFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:15.0f];
+    label.font = helvFont;
+    
+    //    label.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
+    
+    if(section == 0){
+        if(self.isNotDoneProducts.count == 0) label.text = @""; else label.text = @"Надо купить";
+    }
+    
+    if(section == 1){
+        if(self.isDoneProducts.count == 0) label.text = @""; else label.text = @"Уже куплено";
+    }
+    [headerView addSubview:label];
+    
+   
+    [label mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(headerView.mas_centerX);
+        make.top.mas_equalTo(5);
+    }];
+    
+    return headerView;
+}
+
+#pragma mark - MGSwipe delegate
+
+-(BOOL)swipeTableCell:(MGSwipeTableCell *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion{
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     if(indexPath.section == 0){
         PFObject *product = self.isNotDoneProducts[indexPath.row];
         [self.isDoneProducts addObject:product];
         [self.isNotDoneProducts removeObject:product];
         product[@"isDone"] = @(YES);
         [product saveInBackground];
-        
         NSArray *insertIndexPaths = [[NSArray alloc] initWithObjects:
                                      [NSIndexPath indexPathForRow:0 inSection:1],
                                      nil];
-        
         [self.tableView beginUpdates];
         [self.tableView insertRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView endUpdates];
-        
-//        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
     }
-    
+
     if(indexPath.section == 1){
         PFObject *product = self.isDoneProducts[indexPath.row];
         [self.isNotDoneProducts addObject:product];
         [self.isDoneProducts removeObject:product];
         product[@"isDone"] = @(NO);
         [product saveInBackground];
-        
         NSArray *insertIndexPaths = [[NSArray alloc] initWithObjects:
                                      [NSIndexPath indexPathForRow:0 inSection:0],
                                      nil];
-        
         [self.tableView beginUpdates];
         [self.tableView insertRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView endUpdates];
-//        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
     }
-    
     [self.tableView reloadData];
+    return YES;
 }
-
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(110, 0, 230, 20)];
-    headerView.backgroundColor = [UIColor clearColor];
-    
-    UILabel *label = [[UILabel alloc] initWithFrame: CGRectMake(110,0, 250, 20)];
-    label.backgroundColor = [UIColor clearColor];
-    label.alpha = 0.8;
-    UIFont *helvFont = [UIFont fontWithName:@"HelveticaNeue" size:15.0];
-    label.font = helvFont;
-//    label.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
-    if(section == 0){
-       if(self.isNotDoneProducts.count == 0) label.text = @""; else label.text = @"Надо купить";
-    }
-    if(section == 1){
-       if(self.isDoneProducts.count == 0) label.text = @""; else label.text = @"Уже куплено";
-    }
-    [headerView addSubview:label];
-    return headerView;
-}
-
 
 #pragma mark - Helper methods
 
+- (UIView *)viewWithImageName:(NSString *)imageName {
+    UIImage *image = [UIImage imageNamed:imageName];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    imageView.contentMode = UIViewContentModeCenter;
+    return imageView;
+}
 
--(void) isDoneOrNot
-{
+-(void) isDoneOrNot {
     self.isDoneProducts = [NSMutableArray new];
     self.isNotDoneProducts = [NSMutableArray new];
     for(PFObject *productObject in self.products){
@@ -198,14 +288,11 @@
         } else
             [self.isNotDoneProducts addObject:productObject];
     }
-    
 }
 
--(void) downloadProducts
-{
+-(void) downloadProducts {
     PFQuery *query = [PFQuery queryWithClassName:@"ProductList"];
     [query whereKey:@"listId" equalTo:self.list];
-    
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error){
         if(!error){
             self.products = [NSMutableArray new];
@@ -213,31 +300,20 @@
                 [self.products addObject:listObject];
             }
             [self isDoneOrNot];
-            if(self.products.count != 0){
+            if([self.products count] != 0) {
                 [self.tableView reloadData];
-                self.tableView.hidden = NO;
-            } else {
-                self.emptyListLabel.hidden = NO;
-                self.emptyListLabel.alpha = 0.7;
             }
             [MBProgressHUD hideHUDForView:self.view animated:YES];
-            
         }
     }];
 }
 
--(void) setUpScreen
-{
-    
-    
-    
-    
+-(void) setUpScreen {
     self.tableView.tableFooterView = [UIView new];
     self.navigationItem.title = self.list[@"name"];
-    [self.addProductButton.layer setBorderColor:[[UIColor darkGrayColor] CGColor]];
-    [self.addProductButton.layer setCornerRadius:4];
-    [self.addProductButton.layer setBorderWidth:0.5];
-    
 }
 
+
+
 @end
+

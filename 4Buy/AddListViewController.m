@@ -7,23 +7,27 @@
 //
 
 #import "AddListViewController.h"
-#import "List.h"
+#import <FlatUIKit/UIColor+FlatUI.h>
+#import <FlatUIKit/UIFont+FlatUI.h>
+#import <FlatUIKit/FlatUIKit.h>
 #import <Parse/Parse.h>
-#import <TNRadioButtonGroup/TNRadioButtonGroup.h>
+#import <Masonry/Masonry.h>
+#import <ChameleonFramework/Chameleon.h>
+
 
 @interface AddListViewController ()
-@property (strong, nonatomic) IBOutlet UITextField *nameTextField;
-@property (strong, nonatomic) IBOutlet UIButton *redColorButton;
-@property (strong, nonatomic) IBOutlet UIButton *blueColorButton;
-@property (strong, nonatomic) IBOutlet UIButton *greenColorButton;
-@property (strong, nonatomic) IBOutlet UIButton *yellowColorButton;
-@property (strong, nonatomic) IBOutlet UIButton *orangeColorButton;
-@property (strong, nonatomic) IBOutlet UIButton *blackColorButton;
-@property (nonatomic) UIColor *clr;
-@property (nonatomic) UIColor *clr2;
+
+@property (nonatomic) FUIButton *firstButton;
+@property (nonatomic) FUIButton *secondButton;
+@property (nonatomic) FUIButton *thirdButton;
+@property (nonatomic) FUIButton *fourthButton;
+@property (nonatomic) FUIButton *fifthButton;
+@property (nonatomic) FUIButton *sixthButton;
+
 @property (nonatomic) NSString *selectedColor;
 
-@property (nonatomic) TNRadioButtonGroup *sexGroup;
+@property (nonatomic) UILabel *borderLabel;
+@property (nonatomic) FUITextField * nameTextField;
 
 @end
 
@@ -31,15 +35,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.clr2 = [UIColor colorWithRed:0x47/255.0f
-                               green:0x98/255.0f
-                                blue:0xFF/255.0f alpha:1];
-    
-    self.clr = [UIColor colorWithRed:0x29/255.0f
-                                   green:0xC0/255.0f
-                                    blue:0x62/255.0f alpha:1];
-
     
     [self setUpScreen];
     // Do any additional setup after loading the view.
@@ -63,103 +58,193 @@
 
 #pragma mark - color pick methods
 
-- (IBAction)redButtonPressed:(UIButton *)sender {
-    self.selectedColor = @"#FF0000";
-    [self.redColorButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
-    [self.redColorButton.layer setBorderWidth:3.2];
-    [self.blueColorButton.layer setBorderColor:[self.clr2 CGColor]];
-    [self.greenColorButton.layer setBorderColor:[self.clr CGColor]];
-    [self.yellowColorButton.layer setBorderColor:[[UIColor magentaColor] CGColor]];
-    [self.orangeColorButton.layer setBorderColor:[[UIColor orangeColor] CGColor]];
-    [self.blackColorButton.layer setBorderColor:[[UIColor brownColor] CGColor]];
-}
-- (IBAction)blueButtonPressed:(UIButton *)sender {
-    self.selectedColor = @"#4798FF";
-    [self.blueColorButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
-    [self.blueColorButton.layer setBorderWidth:3.2];
-    [self.redColorButton.layer setBorderColor:[[UIColor redColor] CGColor]];
-    [self.greenColorButton.layer setBorderColor:[self.clr CGColor]];
-    [self.yellowColorButton.layer setBorderColor:[[UIColor magentaColor] CGColor]];
-    [self.orangeColorButton.layer setBorderColor:[[UIColor orangeColor] CGColor]];
-    [self.blackColorButton.layer setBorderColor:[[UIColor brownColor] CGColor]];
-}
-- (IBAction)greenButtonPressed:(UIButton *)sender {
-    self.selectedColor = @"#29C062";
-    [self.greenColorButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
-    [self.greenColorButton.layer setBorderWidth:3.2];
-    [self.redColorButton.layer setBorderColor:[[UIColor redColor] CGColor]];
-    [self.blueColorButton.layer setBorderColor:[self.clr2 CGColor]];
-    [self.yellowColorButton.layer setBorderColor:[[UIColor magentaColor] CGColor]];
-    [self.orangeColorButton.layer setBorderColor:[[UIColor orangeColor] CGColor]];
-    [self.blackColorButton.layer setBorderColor:[[UIColor brownColor] CGColor]];
-}
-- (IBAction)magentaButtonPressed:(UIButton *)sender {
-    self.selectedColor = @"#FF00FF";
-    [self.yellowColorButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
-    [self.yellowColorButton.layer setBorderWidth:3.2];
-    [self.redColorButton.layer setBorderColor:[[UIColor redColor] CGColor]];
-    [self.blueColorButton.layer setBorderColor:[self.clr2 CGColor]];
-    [self.greenColorButton.layer setBorderColor:[self.clr CGColor]];
-    [self.orangeColorButton.layer setBorderColor:[[UIColor orangeColor] CGColor]];
-    [self.blackColorButton.layer setBorderColor:[[UIColor brownColor] CGColor]];
+-(void) firstButtonPressed {
+    self.selectedColor = @"#3498DB";
+    [self.borderLabel.layer setBorderColor:[[UIColor peterRiverColor] CGColor]];
 }
 
-- (IBAction)orangeButtonPressed:(UIButton *)sender {
-    self.selectedColor = @"#FF7F00";
-    [self.orangeColorButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
-    [self.orangeColorButton.layer setBorderWidth:3.2];
-    [self.redColorButton.layer setBorderColor:[[UIColor redColor] CGColor]];
-    [self.blueColorButton.layer setBorderColor:[self.clr2 CGColor]];
-    [self.greenColorButton.layer setBorderColor:[self.clr CGColor]];
-    [self.yellowColorButton.layer setBorderColor:[[UIColor magentaColor] CGColor]];
-    [self.blackColorButton.layer setBorderColor:[[UIColor brownColor] CGColor]];
+-(void) secondButtonPressed {
+    self.selectedColor = @"#90745B";
+    [self.borderLabel.layer setBorderColor:[[UIColor flatCoffeeColor] CGColor]];
 }
-- (IBAction)brownButtonPressed:(UIButton *)sender {
-    self.selectedColor = @"#996633";
-    [self.blackColorButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
-    [self.blackColorButton.layer setBorderWidth:3.2];
-    [self.redColorButton.layer setBorderColor:[[UIColor redColor] CGColor]];
-    [self.blueColorButton.layer setBorderColor:[self.clr2 CGColor]];
-    [self.greenColorButton.layer setBorderColor:[self.clr CGColor]];
-    [self.yellowColorButton.layer setBorderColor:[[UIColor magentaColor] CGColor]];
-    [self.orangeColorButton.layer setBorderColor:[[UIColor orangeColor] CGColor]];
 
+-(void) thirdButtonPressed {
+    self.selectedColor = @"#f1c40f";
+    [self.borderLabel.layer setBorderColor:[[UIColor sunflowerColor] CGColor]];
 }
+
+-(void) fourthButtonPressed {
+    self.selectedColor = @"#e74c3c";
+    [self.borderLabel.layer setBorderColor:[[UIColor alizarinColor] CGColor]];
+}
+
+-(void) fifthButtonPressed {
+    self.selectedColor = @"#853DAE";
+    [self.borderLabel.layer setBorderColor:[[UIColor flatMagentaColor] CGColor]];
+}
+
+-(void) sixthButtonPressed {
+    self.selectedColor = @"#E960BB";
+    [self.borderLabel.layer setBorderColor:[[UIColor flatPinkColor] CGColor]];
+}
+
 
 #pragma mark - Helper methods
 
--(void)addColor:(UIColor *)color forButton:(UIButton *)button
-{
-    [button.layer setCornerRadius:15];
-    [button.layer setBorderColor:[color CGColor]];
-    [button.layer setBorderWidth:1];
-    [button setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
-    [button.layer setBackgroundColor:[color CGColor]];
-    [button setAlpha:0.65];
-}
-
 -(void) setUpScreen
 {
-    [self addColor:[UIColor redColor] forButton:self.redColorButton];
-    [self addColor:self.clr2 forButton:self.blueColorButton];
-    [self addColor:self.clr forButton:self.greenColorButton];
-    [self addColor:[UIColor magentaColor] forButton:self.yellowColorButton];
-    [self addColor:[UIColor orangeColor] forButton:self.orangeColorButton];
-    [self addColor:[UIColor brownColor] forButton:self.blackColorButton];
     
- 
+    self.nameTextField = [[FUITextField alloc] init];
+//    [self.nameTextField becomeFirstResponder];
+    self.nameTextField.placeholder = @"Введите название списка";
+    self.selectedColor = @"#2ecc71";
+    self.nameTextField.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:15.0f];
+    self.nameTextField.backgroundColor = [UIColor clearColor];
+    self.nameTextField.textFieldColor = [UIColor whiteColor];
+    self.nameTextField.textColor = [UIColor flatBlackColor];
+    self.nameTextField.borderColor = [UIColor clearColor];
+    self.nameTextField.borderWidth = 0;
+    self.nameTextField.cornerRadius = 3.0f;
     
-    UIColor *color = [UIColor grayColor];
-    if ([self.nameTextField respondsToSelector:@selector(setAttributedPlaceholder:)]) {
-        self.nameTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Введите название" attributes:@{NSForegroundColorAttributeName: color}];
-    } else {
-        NSLog(@"Cannot set placeholder text's color, because deployment target is earlier than iOS 6.0");
-        // TODO: Add fall-back code to set placeholder color.
-    }
+
     
-    UIView *lineView1 = [[UIView alloc] initWithFrame:CGRectMake(25, 110, self.view.bounds.size.width-53, 0.5)];
-    lineView1.backgroundColor = color;
-    [self.view addSubview:lineView1];
+    UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(10, 0, 10, 20)];
+    self.nameTextField.leftView = paddingView;
+    self.nameTextField.leftViewMode = UITextFieldViewModeAlways;
+    
+    
+    [self.view addSubview:self.nameTextField];
+    [self.nameTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(80);
+        make.centerX.equalTo(self.view.mas_centerX);
+        make.height.mas_equalTo(self.view.frame.size.height / 15);
+        make.width.mas_equalTo(self.view.frame.size.width - 30);
+    }];
+    
+    self.borderLabel = [[UILabel alloc]init];
+    [self.borderLabel.layer setBorderColor:[[UIColor emerlandColor]CGColor]];
+    [self.borderLabel.layer setBorderWidth:1.8f];
+    [self.borderLabel.layer setCornerRadius:3.0f];
+    
+    [self.view addSubview:self.borderLabel];
+    [self.borderLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(80);
+        make.centerX.equalTo(self.view.mas_centerX);
+        make.height.mas_equalTo(self.view.frame.size.height / 15);
+        make.width.mas_equalTo(self.view.frame.size.width - 30);
+    }];
+    
+    self.firstButton = [[FUIButton alloc]init];
+    self.firstButton.buttonColor = [UIColor peterRiverColor];
+    self.firstButton.shadowColor = [UIColor belizeHoleColor];
+    self.firstButton.shadowHeight = 6.0f;
+    self.firstButton.cornerRadius = self.view.frame.size.width / 10;
+    self.firstButton.titleLabel.font = [UIFont boldFlatFontOfSize:16];
+    [self.firstButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateNormal];
+    [self.firstButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateHighlighted];
+    [self.view addSubview:self.firstButton];
+    
+    [self.firstButton addTarget:self action:@selector(firstButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    
+    int margin_left = self.view.frame.size.width / 7.65;
+    
+    [self.firstButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(140);
+        make.left.mas_equalTo(margin_left);
+        make.width.mas_equalTo(self.view.frame.size.width / 9.5);
+        make.height.mas_equalTo(self.view.frame.size.height / 17);
+    }];
+    
+    self.secondButton = [[FUIButton alloc]init];
+    self.secondButton.buttonColor = [UIColor flatCoffeeColor];
+    self.secondButton.shadowColor = [UIColor flatCoffeeColorDark];
+    self.secondButton.shadowHeight = 6.0f;
+    self.secondButton.cornerRadius = self.view.frame.size.width / 10;
+    self.secondButton.titleLabel.font = [UIFont boldFlatFontOfSize:16];
+    [self.secondButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateNormal];
+    [self.secondButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateHighlighted];
+    [self.secondButton addTarget:self action:@selector(secondButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.secondButton];
+    
+    [self.secondButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(140);
+        make.left.mas_equalTo(margin_left * 2);
+        make.width.mas_equalTo(self.view.frame.size.width / 9.5);
+        make.height.mas_equalTo(self.view.frame.size.height / 17);
+    }];
+    
+    self.thirdButton = [[FUIButton alloc]init];
+    self.thirdButton.buttonColor = [UIColor sunflowerColor];
+    self.thirdButton.shadowColor = [UIColor flatYellowColorDark];
+    self.thirdButton.shadowHeight = 6.0f;
+    self.thirdButton.cornerRadius = self.view.frame.size.width / 10;
+    self.thirdButton.titleLabel.font = [UIFont boldFlatFontOfSize:16];
+    [self.thirdButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateNormal];
+    [self.thirdButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateHighlighted];
+    [self.thirdButton addTarget:self action:@selector(thirdButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.thirdButton];
+    
+    [self.thirdButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(140);
+        make.left.mas_equalTo(margin_left * 3);
+        make.width.mas_equalTo(self.view.frame.size.width / 9.5);
+        make.height.mas_equalTo(self.view.frame.size.height / 17);
+    }];
+    
+    self.fourthButton = [[FUIButton alloc]init];
+    self.fourthButton.buttonColor = [UIColor alizarinColor];
+    self.fourthButton.shadowColor = [UIColor pomegranateColor];
+    self.fourthButton.shadowHeight = 6.0f;
+    self.fourthButton.cornerRadius = self.view.frame.size.width / 10;
+    self.fourthButton.titleLabel.font = [UIFont boldFlatFontOfSize:16];
+    [self.fourthButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateNormal];
+    [self.fourthButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateHighlighted];
+    [self.fourthButton addTarget:self action:@selector(fourthButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.fourthButton];
+    
+    [self.fourthButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(140);
+        make.left.mas_equalTo(margin_left * 4);
+        make.width.mas_equalTo(self.view.frame.size.width / 9.5);
+        make.height.mas_equalTo(self.view.frame.size.height / 17);
+    }];
+    
+    self.fifthButton = [[FUIButton alloc]init];
+    self.fifthButton.buttonColor = [UIColor flatMagentaColor];
+    self.fifthButton.shadowColor = [UIColor flatMagentaColorDark];
+    self.fifthButton.shadowHeight = 6.0f;
+    self.fifthButton.cornerRadius = self.view.frame.size.width / 10;
+    self.fifthButton.titleLabel.font = [UIFont boldFlatFontOfSize:16];
+    [self.fifthButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateNormal];
+    [self.fifthButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateHighlighted];
+    [self.fifthButton addTarget:self action:@selector(fifthButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.fifthButton];
+    
+    [self.fifthButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(140);
+        make.left.mas_equalTo(margin_left * 5);
+        make.width.mas_equalTo(self.view.frame.size.width / 9.5);
+        make.height.mas_equalTo(self.view.frame.size.height / 17);
+    }];
+    
+    self.sixthButton = [[FUIButton alloc]init];
+    self.sixthButton.buttonColor = [UIColor flatPinkColor];
+    self.sixthButton.shadowColor = [UIColor flatPinkColorDark];
+    self.sixthButton.shadowHeight = 6.0f;
+    self.sixthButton.cornerRadius = self.view.frame.size.width / 10;
+    self.sixthButton.titleLabel.font = [UIFont boldFlatFontOfSize:16];
+    [self.sixthButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateNormal];
+    [self.sixthButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateHighlighted];
+    [self.sixthButton addTarget:self action:@selector(sixthButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.sixthButton];
+    
+    [self.sixthButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(140);
+        make.left.mas_equalTo(margin_left * 6);
+        make.width.mas_equalTo(self.view.frame.size.width / 9.5);
+        make.height.mas_equalTo(self.view.frame.size.height / 17);
+    }];
+    
 }
 
 

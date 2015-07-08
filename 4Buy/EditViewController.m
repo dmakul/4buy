@@ -1,12 +1,12 @@
 //
-//  AddProductViewController.m
+//  EditViewController.m
 //  4Buy
 //
-//  Created by Даурен Макул on 01.07.15.
+//  Created by Даурен Макул on 08.07.15.
 //  Copyright (c) 2015 Даурен Макул. All rights reserved.
 //
 
-#import "AddProductViewController.h"
+#import "EditViewController.h"
 #import <FlatUIKit/FlatUIKit.h>
 #import <FlatUIKit/UIColor+FlatUI.h>
 #import <FlatUIKit/UIFont+FlatUI.h>
@@ -14,7 +14,7 @@
 #import <ChameleonFramework/Chameleon.h>
 #import <Parse/Parse.h>
 
-@interface AddProductViewController ()
+@interface EditViewController ()
 
 @property (nonatomic) FUITextField *nameTextField;
 @property (nonatomic) FUITextField *amountTextField;
@@ -22,12 +22,14 @@
 
 @end
 
-@implementation AddProductViewController
+
+@implementation EditViewController
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-
+    
     
     [self setUpScreen];
     // Do any additional setup after loading the view.
@@ -37,20 +39,16 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-- (IBAction)addButtonPressed:(UIBarButtonItem *)sender {
-    
-    PFObject *product = [PFObject objectWithClassName:@"ProductList"];
+- (IBAction)editButtonPressed:(UIBarButtonItem *)sender {
+    PFObject *product = [PFObject new];
     product[@"name"] = self.nameTextField.text;
     product[@"listId"] = self.list;
     product[@"amount"] = self.amountTextField.text;
-    product[@"isDone"] = @(NO);
+    product[@"isDone"] = self.product[@"isDone"];
     [product saveInBackground];
     
-    
-    [self.delegate didAddProduct:product];
+    [self.delegate didEditProduct:product];
 }
-
 
 
 #pragma mark - Helper methods
@@ -58,7 +56,7 @@
 -(void) setUpScreen {
     
     self.nameTextField = [[FUITextField alloc]init];
-    self.nameTextField.placeholder = @"Введите название продукта";
+    self.nameTextField.text = self.product[@"name"];
     self.nameTextField.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:15.0f];
     self.nameTextField.backgroundColor = [UIColor clearColor];
     self.nameTextField.textFieldColor = [UIColor whiteColor];
@@ -79,7 +77,7 @@
     }];
     
     self.amountTextField = [[FUITextField alloc]init];
-    self.amountTextField.placeholder = @"Введите количество";
+    self.amountTextField.text = self.product[@"amount"];
     self.amountTextField.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:15.0f];
     self.amountTextField.backgroundColor = [UIColor clearColor];
     self.amountTextField.textFieldColor = [UIColor whiteColor];
@@ -101,14 +99,5 @@
     
 }
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end
